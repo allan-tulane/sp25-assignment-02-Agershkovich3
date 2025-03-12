@@ -17,7 +17,7 @@ Derive asymptotic upper bounds of work for each recurrence below.
 * $W(n)=2W(n/3)+1$
 .  
 .  This reccurence forms a tree where each node has two new nodes with size n/3. The depth is then log3(n) and each node has work 1 and the total work at each level is 2^i
-dominated so the work is 2^log3(n) which simplifies to O(n^(lg3(2)))
+dominated so the work is 2^log3(n) which simplifies to O(n^(log3(2)))
 . 
 .  
 . 
@@ -46,8 +46,7 @@ so the work is like above O(n^log4(5))
 .
 
 * $W(n)=9W(n/3)+n^2$
-.  root work n^2 each level work is 9(n/3)^2 = 9n^2/9= n^2which isbalanced
-* and there are log9(n) levels so O(n^2lg(n))
+.  root work n^2 each level work is 9(n/3)^2 = 9n^2/9= n^2which isbalanced and there are log9(n) levels so O(n^2log(n))
 . 
 .  
 . 
@@ -70,7 +69,7 @@ so the work is like above O(n^log4(5))
 
 * $W(n)=49W(n/25)+n^{3/2}\log n$
 .  root = n^3/2logn 
-. 49((n/25)^(3/2)log(n/25)) = 49n^(3/2)/125 * lg(n/25) is less work so root dominated, so O(n^(3/2))*logn per level, so
+. 49((n/25)^(3/2)log(n/25)) = 49n^(3/2)/125 * log(n/25) is less work so root dominated, so O(n^(3/2))*logn per level, so
 .  O(n^(3/2)(logn)^2)
 . 
 .  
@@ -98,8 +97,8 @@ so the work is like above O(n^log4(5))
 . 
 
 * $W(n)=W(\sqrt{n})+1$
-root  is 1, level 1 is 1, 1 at every level, but the depth of sqrt n divisions is logn*logn
-.  O(lgn*lgn)
+. root  is 1, level 1 is 1, 1 at every level, but the depth of sqrt n divisions is logn*logn
+.  O(logn*logn)
 .  
 .  
 .  
