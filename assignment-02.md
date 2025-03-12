@@ -1,6 +1,6 @@
 # CMPS 2200 Assignment 2
 
-**Name:**_________________________
+**Name:** Aaron Gershkovich
 
 In this assignment we'll work on applying the methods we've learned to analyze recurrences, and also see their behavior
 in practice. As with previous
@@ -16,7 +16,8 @@ Derive asymptotic upper bounds of work for each recurrence below.
 
 * $W(n)=2W(n/3)+1$
 .  
-.  
+.  This reccurence forms a tree where each node has two new nodes with size n/3. The depth is then log3(n) and each node has work 1 and the total work at each level is 2^i
+dominated so the work is 2^log3(n) which simplifies to O(n^(lg3(2)))
 . 
 .  
 . 
@@ -24,7 +25,8 @@ Derive asymptotic upper bounds of work for each recurrence below.
 . 
  
 * $W(n)=5W(n/4)+n$
-.  
+.  (5n)/4 grows asymptotically faster than n, because each level contributes n(5/4)^i therefore leaf dominanted
+so the work is like above O(n^log4(5))
 .
 .  
 . 
@@ -35,7 +37,7 @@ Derive asymptotic upper bounds of work for each recurrence below.
 . 
 
 * $W(n)=7W(n/7)+n$
-.  
+.  (7n)/7 = n, as each level controbutes (7/7)^i*n, which is n at logn levels, therefore balanced so log n depth and n work at each level so O(nlogn) 
 . 
 .  
 .  
@@ -44,8 +46,8 @@ Derive asymptotic upper bounds of work for each recurrence below.
 .
 
 * $W(n)=9W(n/3)+n^2$
-.  
-.
+.  root work n^2 each level work is 9(n/3)^2 = 9n^2/9= n^2which isbalanced
+* and there are log9(n) levels so O(n^2lg(n))
 . 
 .  
 . 
@@ -55,9 +57,9 @@ Derive asymptotic upper bounds of work for each recurrence below.
 .
 
 * $W(n)=8W(n/2)+n^3$
-.  
-.
-.  
+.  leaf = 8(n/2)^3 = 8n^3 / 8 = n^3 for every level
+.  root is n^3, therefore this is balanced, and there are log8(n) levels, so
+.  O(n^3logn)
 .  
 .  
 .  
@@ -67,19 +69,18 @@ Derive asymptotic upper bounds of work for each recurrence below.
 
 
 * $W(n)=49W(n/25)+n^{3/2}\log n$
-.  
-.  
-. 
-.  
+.  root = n^3/2logn 
+. 49((n/25)^(3/2)log(n/25)) = 49n^(3/2)/125 * lg(n/25) is less work so root dominated, so O(n^(3/2))*logn per level, so
+.  O(n^(3/2)(logn)^2)
 . 
 .  
 .  
 .  
 
 * $W(n)=W(n-1)+2$
-.  
-.  
-. 
+.  root is 2
+.  total work at level 1 is also 2, therefore balanced 
+. O(n)
 .  
 . 
 .  
@@ -87,9 +88,9 @@ Derive asymptotic upper bounds of work for each recurrence below.
 .  
 
 * $W(n)= W(n-1)+n^c$, with $c\geq 1$
-.  
-.  
-.  
+.  root = n^c
+.  (n-1)^c is still n^c upper bound no matter what value of c is used, but there is geometric decrease as c > 1, so work is root dominated. Thus, 
+.  O(n^(c+1)) 
 .  
 .  
 . 
@@ -97,7 +98,8 @@ Derive asymptotic upper bounds of work for each recurrence below.
 . 
 
 * $W(n)=W(\sqrt{n})+1$
-.  
+root  is 1, level 1 is 1, 1 at every level, but the depth of sqrt n divisions is logn*logn
+.  O(lgn*lgn)
 .  
 .  
 .  
@@ -127,14 +129,23 @@ Suppose that for a given task you are choosing between the following three algor
     Which algorithm would you choose?
 
 
-.  
-.  
-.  
-.  
-. 
-. 
+.  A: W(n) = 5W(n/2) + n
+.  leaf is n^log2(5)
+.  root is n, since leaf > root, it is leaf dominated, thus
+.  O(n^log2(5))
 
+. B: W(n) = 2W(n-1) + 1
+. leaf = O(2^n) because there are 2^i branches being fored
+  root = O(1), therefore leaf dominanted
+  O(2^n)
 
+  C: W(n) = 9W(n/3) + n^2
+  leaf is  9(n/3)^2 = 9/9 *n^2 = n^2
+  root= n^2, therefore balanced, but there are logn levels, so 
+  O(n^2 * logn)
+
+B < A < C, Choose C since it has the least work, as B is inefficient and n^2logn increases slower than n^log2(5)
+  
 
 ## Part 3: Parenthesis Matching
 
@@ -160,10 +171,11 @@ Below, we'll solve this problem three different ways, using iterate, scan, and d
 
 **3b.** What are the recurrences for the Work and Span of this solution? What are their Big Oh solutions?
 
-**enter answer here**
+W(n) is  W(n-1) +O(1)
+S(n) is S(n-1) + O(1), so 
+W(n) = O(n)
+S(n) = O(n)
 
-.  
-. 
 
 
 
@@ -176,7 +188,8 @@ Below, we'll solve this problem three different ways, using iterate, scan, and d
 
 **3d.** Assume that any `map`s are done in parallel, and that we use the efficient implementation of `scan` from class. What are the recurrences for the Work and Span of this solution? 
 
-**enter answer here**
+W(n) = O(n)
+S(n) = O(logn)
 
 .  
 .  
@@ -197,13 +210,10 @@ Below, we'll solve this problem three different ways, using iterate, scan, and d
 
 **3f.** Assuming any recursive calls are done in parallel, what are the recurrences for the Work and Span of this solution? What are their Big Oh solutions?
 
-**enter answer here**
+W(n) is 2W(n/2) + O(1)
+S(n) is 2S(n/2) + O(1)
+W(n) = O(n)
+S(n) = O(logn)
 
 .  
-. 
-
-
- 
- 
-
-
+.
